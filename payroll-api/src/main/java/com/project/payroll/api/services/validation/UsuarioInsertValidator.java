@@ -1,17 +1,15 @@
 package com.project.payroll.api.services.validation;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.project.payroll.api.controller.exceptions.FieldMessage;
 import com.project.payroll.api.dto.UsuarioNewDTO;
 import com.project.payroll.api.entities.Usuario;
 import com.project.payroll.api.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsuarioInsertValidator implements ConstraintValidator<UsuarioInsert, UsuarioNewDTO>{
 

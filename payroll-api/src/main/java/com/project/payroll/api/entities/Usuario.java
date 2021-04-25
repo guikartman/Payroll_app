@@ -1,17 +1,12 @@
 package com.project.payroll.api.entities;
 
-import java.io.Serializable;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.*;
+import java.io.Serializable;
+
 @Entity
-@Table(name = "tb_usuario")
+@Table(name = "usuarios")
 public class Usuario implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -19,9 +14,16 @@ public class Usuario implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	private String nome;
+
+	@Column
 	private String email;
+
+	@Column
+	private TipoUsuario tipo;
+
+	@OneToOne
+	@JoinColumn(name = "funcionario_id", referencedColumnName = "id")
+	private Funcionario funcionario;
 	
 	@JsonIgnore
 	private String senha;
@@ -29,12 +31,17 @@ public class Usuario implements Serializable{
 	public Usuario() {
 	}
 
-	public Usuario(Long cdUsuario, String nome, String email, String senha) {
-		super();
-		this.id = cdUsuario;
-		this.nome = nome;
+	public Usuario(String email, String senha ,TipoUsuario tipo) {
 		this.email = email;
 		this.senha = senha;
+		this.tipo = tipo;
+	}
+
+	public Usuario(String email, String senha ,TipoUsuario tipo, Funcionario funcionario) {
+		this.email = email;
+		this.senha = senha;
+		this.tipo = tipo;
+		this.funcionario = funcionario;
 	}
 
 	public Long getId() {
@@ -45,20 +52,28 @@ public class Usuario implements Serializable{
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public TipoUsuario getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoUsuario tipo) {
+		this.tipo = tipo;
+	}
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
 
 	public String getSenha() {

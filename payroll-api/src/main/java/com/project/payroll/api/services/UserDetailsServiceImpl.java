@@ -1,14 +1,13 @@
 package com.project.payroll.api.services;
 
+import com.project.payroll.api.entities.Usuario;
+import com.project.payroll.api.repositories.UserRepository;
+import com.project.payroll.api.security.UserSS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import com.project.payroll.api.entities.Usuario;
-import com.project.payroll.api.repositories.UserRepository;
-import com.project.payroll.api.security.UserSS;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

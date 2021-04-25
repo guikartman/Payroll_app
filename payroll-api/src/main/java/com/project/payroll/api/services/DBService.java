@@ -1,11 +1,9 @@
 package com.project.payroll.api.services;
 
+import com.project.payroll.api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import com.project.payroll.api.entities.Usuario;
-import com.project.payroll.api.repositories.UserRepository;
 
 @Service
 public class DBService {
@@ -18,9 +16,9 @@ public class DBService {
 
 	public void instantiateTestDatabase() {
 		
-		Usuario usu1 = new Usuario(null, "Guilherme Dantas", "gui@gmail.com", pe.encode("meutime123"));
-		
-		repository.save(usu1);
+//		Usuario usu1 = new Usuario(null, "gui@gmail.com", pe.encode("meutime123"));
+//
+//		repository.save(usu1);
 	}
 	
 	
