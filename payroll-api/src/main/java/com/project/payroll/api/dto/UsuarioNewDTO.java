@@ -1,11 +1,12 @@
 package com.project.payroll.api.dto;
 
-import java.io.Serializable;
-
-import javax.validation.constraints.NotNull;
-
+import com.project.payroll.api.entities.TipoUsuario;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
+
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 public class UsuarioNewDTO implements Serializable {
 
@@ -21,6 +22,13 @@ public class UsuarioNewDTO implements Serializable {
 
 	@NotNull(message = "Preenchimento obrigatório")
 	private String senha;
+
+	@NotNull(message = "O tipo de usuario é obrigatorio, preencha entre Administrador ou Funcionario")
+	private TipoUsuario tipo;
+
+	@NotNull(message = "Cpf não preenchido")
+	@CPF
+	private String cpfFuncionario;
 	
 	public UsuarioNewDTO() {
 	}
@@ -47,5 +55,21 @@ public class UsuarioNewDTO implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public TipoUsuario getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoUsuario tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getCpfFuncionario() {
+		return cpfFuncionario;
+	}
+
+	public void setCpfFuncionario(String cpfFuncionario) {
+		this.cpfFuncionario = cpfFuncionario;
 	}
 }

@@ -1,14 +1,13 @@
 package com.project.payroll.api.services;
 
-import java.util.Random;
-
+import com.project.payroll.api.entities.Usuario;
+import com.project.payroll.api.repositories.UserRepository;
+import com.project.payroll.api.services.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.project.payroll.api.entities.Usuario;
-import com.project.payroll.api.repositories.UserRepository;
-import com.project.payroll.api.services.exception.ResourceNotFoundException;
+import java.util.Random;
 
 @Service
 public class AuthService {

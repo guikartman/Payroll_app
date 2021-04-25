@@ -1,17 +1,16 @@
 package com.project.payroll.api.controller;
 
-import javax.servlet.http.HttpServletResponse;
-
+import com.project.payroll.api.security.JWTUtil;
+import com.project.payroll.api.security.UserSS;
+import com.project.payroll.api.services.AuthService;
+import com.project.payroll.api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.payroll.api.security.JWTUtil;
-import com.project.payroll.api.security.UserSS;
-import com.project.payroll.api.services.AuthService;
-import com.project.payroll.api.services.UserService;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping(value = "/auth")
