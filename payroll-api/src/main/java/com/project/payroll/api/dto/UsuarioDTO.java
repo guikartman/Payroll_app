@@ -1,5 +1,6 @@
 package com.project.payroll.api.dto;
 
+import com.project.payroll.api.entities.Empresa;
 import com.project.payroll.api.entities.TipoUsuario;
 import com.project.payroll.api.entities.Usuario;
 
@@ -13,7 +14,7 @@ public class UsuarioDTO implements Serializable {
 	private String nome;
 	private String email;
 	private TipoUsuario tipo;
-	private String funcionarioCpf;
+	private Empresa empresa;
 
 	public UsuarioDTO() {
 	}
@@ -22,7 +23,7 @@ public class UsuarioDTO implements Serializable {
 		id = obj.getId();
 		email = obj.getEmail();
 		tipo = obj.getTipo();
-		funcionarioCpf = obj.getFuncionario().getCpf();
+		this.empresa = obj.getEmpresa();
 	}
 
 	public Long getId() {
@@ -57,12 +58,12 @@ public class UsuarioDTO implements Serializable {
 		this.tipo = tipo;
 	}
 
-	public String getFuncionarioCpf() {
-		return funcionarioCpf;
+	public Empresa getEmpresa() {
+		return empresa;
 	}
 
-	public void setFuncionarioCpf(String funcionarioCpf) {
-		this.funcionarioCpf = funcionarioCpf;
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 }
 

@@ -2,7 +2,9 @@ package com.project.payroll.api.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Objects;
 
 @Entity
@@ -15,31 +17,30 @@ public class FolhaPonto implements Serializable {
     private Long id;
 
     @Column
-    private LocalDateTime horaEntrada;
+    private LocalTime horaEntrada;
 
     @Column
-    private LocalDateTime horaInicioAlmoco;
+    private LocalTime horaInicioAlmoco;
 
     @Column
-    private LocalDateTime horaFimAlmoco;
+    private LocalTime horaFimAlmoco;
 
     @Column
-    private LocalDateTime horaSaida;
+    private LocalTime horaSaida;
+
+    @Column
+    private LocalDate dataPonto;
 
     @ManyToOne
-    @JoinColumn(name = "funcionario_id")
-    private Funcionario funcionario;
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
     public FolhaPonto(){
     }
 
-    public FolhaPonto(Long id, LocalDateTime horaEntrada, LocalDateTime horaInicioAlmoco, LocalDateTime horaFimAlmoco, LocalDateTime horaSaida, Funcionario funcionario) {
-        this.id = id;
-        this.horaEntrada = horaEntrada;
-        this.horaInicioAlmoco = horaInicioAlmoco;
-        this.horaFimAlmoco = horaFimAlmoco;
-        this.horaSaida = horaSaida;
-        this.funcionario = funcionario;
+    public FolhaPonto(LocalDate dataPonto, Usuario usuario) {
+        this.dataPonto = dataPonto;
+        this.usuario = usuario;
     }
 
     public Long getId() {
@@ -50,44 +51,52 @@ public class FolhaPonto implements Serializable {
         this.id = id;
     }
 
-    public LocalDateTime getHoraEntrada() {
+    public LocalTime getHoraEntrada() {
         return horaEntrada;
     }
 
-    public void setHoraEntrada(LocalDateTime horaEntrada) {
+    public void setHoraEntrada(LocalTime horaEntrada) {
         this.horaEntrada = horaEntrada;
     }
 
-    public LocalDateTime getHoraInicioAlmoco() {
+    public LocalTime getHoraInicioAlmoco() {
         return horaInicioAlmoco;
     }
 
-    public void setHoraInicioAlmoco(LocalDateTime horaInicioAlmoco) {
+    public void setHoraInicioAlmoco(LocalTime horaInicioAlmoco) {
         this.horaInicioAlmoco = horaInicioAlmoco;
     }
 
-    public LocalDateTime getHoraFimAlmoco() {
+    public LocalTime getHoraFimAlmoco() {
         return horaFimAlmoco;
     }
 
-    public void setHoraFimAlmoco(LocalDateTime horaFimAlmoco) {
+    public void setHoraFimAlmoco(LocalTime horaFimAlmoco) {
         this.horaFimAlmoco = horaFimAlmoco;
     }
 
-    public LocalDateTime getHoraSaida() {
+    public LocalTime getHoraSaida() {
         return horaSaida;
     }
 
-    public void setHoraSaida(LocalDateTime horaSaida) {
+    public void setHoraSaida(LocalTime horaSaida) {
         this.horaSaida = horaSaida;
     }
 
-    public Funcionario getFuncionario() {
-        return funcionario;
+    public LocalDate getDataPonto() {
+        return dataPonto;
     }
 
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
+    public void setDataPonto(LocalDate dataPonto) {
+        this.dataPonto = dataPonto;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override

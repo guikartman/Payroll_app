@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
@@ -19,29 +21,32 @@ public class Usuario implements Serializable{
 	private String email;
 
 	@Column
+	private String nome;
+
+	@Column
 	private TipoUsuario tipo;
 
-	@OneToOne
-	@JoinColumn(name = "funcionario_id", referencedColumnName = "id")
-	private Funcionario funcionario;
+	@ManyToOne
+	@JoinColumn(name = "empresa_id")
+	private Empresa empresa;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<FolhaPonto> pontos = new ArrayList<>();
 	
 	@JsonIgnore
+	@Column
 	private String senha;
 
 	public Usuario() {
 	}
 
-	public Usuario(String email, String senha ,TipoUsuario tipo) {
+	public Usuario(String email, String nome, TipoUsuario tipo, Empresa empresa, String senha) {
 		this.email = email;
-		this.senha = senha;
+		this.nome = nome;
 		this.tipo = tipo;
-	}
-
-	public Usuario(String email, String senha ,TipoUsuario tipo, Funcionario funcionario) {
-		this.email = email;
+		this.empresa = empresa;
 		this.senha = senha;
-		this.tipo = tipo;
-		this.funcionario = funcionario;
 	}
 
 	public Long getId() {
@@ -60,6 +65,14 @@ public class Usuario implements Serializable{
 		this.email = email;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public TipoUsuario getTipo() {
 		return tipo;
 	}
@@ -68,20 +81,20 @@ public class Usuario implements Serializable{
 		this.tipo = tipo;
 	}
 
-	public Funcionario getFuncionario() {
-		return funcionario;
-	}
-
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
-
 	public String getSenha() {
 		return senha;
 	}
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	@Override

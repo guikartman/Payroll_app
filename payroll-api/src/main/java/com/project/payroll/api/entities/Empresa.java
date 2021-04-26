@@ -1,5 +1,7 @@
 package com.project.payroll.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -21,8 +23,9 @@ public class Empresa implements Serializable {
     @Column
     private String razaoSocial;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
-    private Set<Funcionario> funcionarios = new HashSet<>();
+    private Set<Usuario> usuarios = new HashSet<>();
 
     public  Empresa(){
     }
@@ -56,8 +59,8 @@ public class Empresa implements Serializable {
         this.razaoSocial = razaoSocial;
     }
 
-    public Set<Funcionario> getFuncionarios() {
-        return funcionarios;
+    public Set<Usuario> getUsuarios() {
+        return usuarios;
     }
 
     @Override
