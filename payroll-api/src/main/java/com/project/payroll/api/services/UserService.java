@@ -2,7 +2,7 @@ package com.project.payroll.api.services;
 
 import com.project.payroll.api.dto.UsuarioDTO;
 import com.project.payroll.api.dto.UsuarioNewDTO;
-import com.project.payroll.api.entities.Funcionario;
+import com.project.payroll.api.entities.Empresa;
 import com.project.payroll.api.entities.Usuario;
 import com.project.payroll.api.repositories.UserRepository;
 import com.project.payroll.api.security.UserSS;
@@ -20,11 +20,16 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-	@Autowired
 	private UserRepository repo;
-	
-	@Autowired
+	private EmpresaService empresaService;
 	private BCryptPasswordEncoder pe;
+
+	@Autowired
+	public UserService(UserRepository repo,EmpresaService empresaService, BCryptPasswordEncoder pe) {
+		this.repo = repo;
+		this.empresaService = empresaService;
+		this.pe = pe;
+	}
 	
 	public static UserSS authenticated() {
 		try {
@@ -50,10 +55,12 @@ public class UserService {
 		return new UsuarioDTO(obj);
 	}
 
-	public Usuario insert(Usuario obj) {
-		obj.setId(null);
-		obj = repo.save(obj);
-		return obj;
+	public Usuario findUsuarioById(Long id) {
+		return repo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuario com o id: "+id +", não pode ser encontrado."));
+	}
+
+	public Usuario salvarUsuario(Usuario obj) {
+		return repo.save(obj);
 	}
 
 	public void delete(Long id) {
@@ -81,14 +88,13 @@ public class UserService {
 		return new UsuarioDTO(obj);
 	}
 
-	public Usuario fromDTO(UsuarioDTO objDto) {
-		return new Usuario(objDto.getEmail(),null,objDto.getTipo());
+	public static Usuario fromDTO(UsuarioDTO objDto) {
+		return new Usuario(objDto.getEmail(), objDto.getNome(), objDto.getTipo(), objDto.getEmpresa(),null);
 	}
 
-	public Usuario fromDTO(UsuarioNewDTO objDto, Funcionario funcionario) {
-		Usuario cli = new Usuario(objDto.getEmail(), pe.encode(objDto.getSenha()), objDto.getTipo(), funcionario);
-	
-		return cli;
+	public Usuario fromDTO(UsuarioNewDTO objDto) {
+		Empresa empresa = empresaService.findById(objDto.getCodigoEmpresa());
+		return new Usuario(objDto.getEmail(),objDto.getNome(), objDto.getTipo(), empresa,pe.encode(objDto.getSenha()));
 	}
 	
 	private void updateData(Usuario newObj, Usuario obj) {
