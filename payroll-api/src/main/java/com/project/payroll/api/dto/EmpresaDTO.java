@@ -11,10 +11,10 @@ public class EmpresaDTO {
     private String cnpj;
     private String razaoSocial;
 
-    public EmpresaDTO(Long id, String cnpj, String razaoSocial) {
-        this.id = id;
-        this.cnpj = cnpj;
-        this.razaoSocial = razaoSocial;
+    public EmpresaDTO(Empresa empresa) {
+        this.id = empresa.getId();
+        this.cnpj = empresa.getCnpj();
+        this.razaoSocial = empresa.getRazaoSocial();
     }
 
     public Long getId() {

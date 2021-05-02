@@ -2,8 +2,6 @@ package com.project.payroll.api.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
 
@@ -12,9 +10,13 @@ import java.util.Objects;
 public class FolhaPonto implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @EmbeddedId
+    private PontoUsuarioPK pontoUsuarioPK;
+
+    @MapsId("usuarioId")
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private Usuario usuario;
 
     @Column
     private LocalTime horaEntrada;
@@ -28,31 +30,28 @@ public class FolhaPonto implements Serializable {
     @Column
     private LocalTime horaSaida;
 
-    @Column
-    private LocalDate dataPonto;
-
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
-
     public FolhaPonto(){
     }
 
-    public FolhaPonto(LocalDate dataPonto, Usuario usuario) {
-        this.dataPonto = dataPonto;
+    public FolhaPonto(PontoUsuarioPK pontoUsuarioPK, Usuario usuario, LocalTime horaEntrada, LocalTime horaInicioAlmoco, LocalTime horaFimAlmoco, LocalTime horaSaida) {
+        this.pontoUsuarioPK = pontoUsuarioPK;
         this.usuario = usuario;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.horaEntrada = horaEntrada;
+        this.horaInicioAlmoco = horaInicioAlmoco;
+        this.horaFimAlmoco = horaFimAlmoco;
+        this.horaSaida = horaSaida;
     }
 
     public LocalTime getHoraEntrada() {
         return horaEntrada;
+    }
+
+    public PontoUsuarioPK getPontoUsuarioPK() {
+        return pontoUsuarioPK;
+    }
+
+    public void setPontoUsuarioPK(PontoUsuarioPK pontoUsuarioPK) {
+        this.pontoUsuarioPK = pontoUsuarioPK;
     }
 
     public void setHoraEntrada(LocalTime horaEntrada) {
@@ -83,14 +82,6 @@ public class FolhaPonto implements Serializable {
         this.horaSaida = horaSaida;
     }
 
-    public LocalDate getDataPonto() {
-        return dataPonto;
-    }
-
-    public void setDataPonto(LocalDate dataPonto) {
-        this.dataPonto = dataPonto;
-    }
-
     public Usuario getUsuario() {
         return usuario;
     }
@@ -104,11 +95,11 @@ public class FolhaPonto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FolhaPonto that = (FolhaPonto) o;
-        return Objects.equals(id, that.id);
+        return Objects.equals(pontoUsuarioPK, that.pontoUsuarioPK);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(pontoUsuarioPK);
     }
 }
