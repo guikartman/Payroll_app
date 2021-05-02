@@ -1,5 +1,6 @@
 package com.project.payroll.api.controller;
 
+import com.project.payroll.api.dto.EmpresaDTO;
 import com.project.payroll.api.dto.EmpresaNewDTO;
 import com.project.payroll.api.dto.UsuarioDTO;
 import com.project.payroll.api.entities.Empresa;
@@ -32,10 +33,16 @@ public class EmpresaController {
         return ResponseEntity.created(uri).build();
     }
 
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/usuarios",method = RequestMethod.GET)
     public ResponseEntity<List<UsuarioDTO>> recuperarUsuariosByEmpresaId(@PathVariable Long id) {
         Empresa empresa = service.findById(id);
         List<UsuarioDTO> usuarios = service.listarUsuariosByEmpresa(empresa);
         return ResponseEntity.ok(usuarios);
+    }
+
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    public ResponseEntity<EmpresaDTO> recuperarEmpresaById(@PathVariable Long id) {
+        Empresa empresa = service.findById(id);
+        return ResponseEntity.ok(new EmpresaDTO(empresa));
     }
 }

@@ -44,9 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/swagger-ui.html",
 			"/webjars/**"};
 
-	private static final String[] PUBLIC_MATCHERS_GET = { "/usuarios/**" };
+	private static final String[] PUBLIC_MATCHERS_GET = { "/usuarios/**", "/empresas/**"};
 
-	private static final String[] PUBLIC_MATCHERS_POST = { "/usuarios/**", "/auth/forgot/**"};
+	private static final String[] PUBLIC_MATCHERS_POST = { "/usuarios/**", "/empresas/**", "/auth/forgot/**"};
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

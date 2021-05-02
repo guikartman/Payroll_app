@@ -52,11 +52,4 @@ public class UserController {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
-	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<UsuarioDTO>> findAll() {
-		List<Usuario> list = service.findAll();
-		List<UsuarioDTO> listDto = list.stream().map(obj -> new UsuarioDTO(obj)).collect(Collectors.toList());  
-		return ResponseEntity.ok().body(listDto);
-	}
 }

@@ -21,9 +21,10 @@ public class UsuarioDTO implements Serializable {
 	
 	public UsuarioDTO(Usuario obj) {
 		id = obj.getId();
+		nome = obj.getNome();
 		email = obj.getEmail();
 		tipo = obj.getTipo();
-		this.empresa = obj.getEmpresa();
+		empresa = obj.getEmpresa();
 	}
 
 	public Long getId() {
